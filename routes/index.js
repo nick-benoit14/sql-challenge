@@ -14,4 +14,11 @@ router.get('/new', function(req, res) {
   res.render('new', { title: 'New Blog Post'});
 });
 
+router.post('/new', function(req, res){
+  db.savePost(
+    {title: req.body.title, content: req.body.content},
+    function(){ res.redirect('/'); }
+  )
+})
+
 module.exports = router;

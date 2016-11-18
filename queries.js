@@ -16,6 +16,19 @@ function getAllPosts(cb) {
   })
 }
 
+function savePost(post, cb){
+  db.none(
+    'insert into posts(title, content) values(${title}, ${content})',
+    post
+  ).then(function(){
+    cb();
+  }).catch(function(err){
+    cb(err);
+  })
+
+}
+
 module.exports = {
-  getAllPosts: getAllPosts
+  getAllPosts: getAllPosts,
+  savePost: savePost
 };
