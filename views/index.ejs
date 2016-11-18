@@ -1,6 +1,12 @@
 <% include header %>
 
-  <h1><%-title %></h1>
-  <p>Welcome to <%-title %></p>
+  <h1>Blog Posts</h1>
+  <%
+   posts.forEach(function(post){ %>
+    <div>
+      <h3><%= post.title%></h3>
+      <p><%= post.content %></p>
+    </div>
+  <% }); %>
 
 <% include footer %>
