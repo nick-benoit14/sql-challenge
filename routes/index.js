@@ -19,6 +19,29 @@ router.post('/new', function(req, res){
     {title: req.body.title, content: req.body.content},
     function(){ res.redirect('/'); }
   )
-})
+});
+
+router.get('/:id', function(req, res){
+  db.getPost(req.params.id, function(err, post){
+    if(err){return next(err);}
+    res.render('show', {title:post.title, content: post.content })
+  });
+});
+
+router.get('/:id/edit', function(req, res){
+  db.getPost(req.params.id, function(err, post){
+    if(err){return next(err);}
+    res.render('edit', {id: req.params.id, title:post.title, content: post.content })
+  });
+});
+
+router.post('/:id/edit', function(req, res){
+  const id = req.params.id;
+  const post = {title: req.body.title, content: req.body.content};
+  db.updatePost(id, post, function(err, success){
+    if(err){return next(err);}
+    res.redirect(`/${id}`);
+  })
+});
 
 module.exports = router;

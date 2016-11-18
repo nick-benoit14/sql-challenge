@@ -25,10 +25,26 @@ function savePost(post, cb){
   }).catch(function(err){
     cb(err);
   })
+}
 
+function getPost(id, cb){
+  db.one('select * from posts where id = $1', id).then(function(post){
+    cb(null, post);
+  }).catch(function(err){ cb(err); })
+}
+
+function updatePost(id, post, cb){
+  db.none(
+    'update posts set title=$1, content=$2 where id=$3',
+    [post.title, post.content, id]
+  ).then(function(){
+    cb(null, true);
+  }).catch(function(err){cb(err);})
 }
 
 module.exports = {
   getAllPosts: getAllPosts,
-  savePost: savePost
+  savePost: savePost,
+  getPost: getPost,
+  updatePost: updatePost
 };
