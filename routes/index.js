@@ -6,8 +6,12 @@ var db = require('../queries');
 
 router.get('/', function(req, res) {
   db.getAllPosts(function(posts){
-    res.render('index', { title: 'Express', posts:posts });
+    res.render('index', { title: 'Blog Posts', posts:posts });
   });
+});
+
+router.get('/new', function(req, res) {
+  res.render('new', { title: 'New Blog Post'});
 });
 
 module.exports = router;
