@@ -24,7 +24,7 @@ router.post('/new', function(req, res){
 router.get('/:id', function(req, res){
   db.getPost(req.params.id, function(err, post){
     if(err){return next(err);}
-    res.render('show', {title:post.title, content: post.content })
+    res.render('show', {id: req.params.id, title:post.title, content: post.content })
   });
 });
 
